@@ -28,4 +28,20 @@ impl Into<Bson> for UserStatus {
     }
 }
 
-pub struct Post {}
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Post {
+    #[serde(rename = "_id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<ObjectId>,
+    pub user: ObjectId,
+    pub title: String,
+    pub body: String,
+    pub created_at: DateTime<Utc>,
+    pub comments: Vec<Comment>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Comment {
+    pub user: ObjectId,
+    pub message: String,
+    pub created_at: DateTime<Utc>,
+}

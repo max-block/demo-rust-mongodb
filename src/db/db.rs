@@ -1,10 +1,11 @@
-use mongodb::{error::Error, error::ErrorKind, sync::Client};
+use mongodb::{error::Error, sync::Client};
 use url::{ParseError, Url};
 
-use super::repositories::UserRepository;
+use super::repositories::{PostRepository, UserRepository};
 
 pub struct DB {
     pub user: UserRepository,
+    pub post: PostRepository,
 }
 
 impl DB {
@@ -12,8 +13,9 @@ impl DB {
         let client = Client::with_uri_str(&database_url)?;
         let database_name = parse_database_name_from_url(&database_url).unwrap();
         let user = UserRepository::new(client.database(&database_name).collection("user"));
+        let post = PostRepository::new(client.database(&database_name).collection("post"));
 
-        Ok(DB { user })
+        Ok(DB { user, post })
     }
 }
 
