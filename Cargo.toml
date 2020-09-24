@@ -1,0 +1,9 @@
+[package]
+authors = ["Max Block <maxblock@pm.me>"]
+edition = "2018"
+name = "demo-rust-mongodb"
+version = "0.1.0"
+
+[dependencies]
+mongodb = {version = "1.1.1", default-features = false, features = ["sync"]}
+url = "2.1.1"
